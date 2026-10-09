@@ -71,7 +71,6 @@ export function Welcome() {
             <h2 className="text-[1.07rem] font-semibold">Good to know</h2>
             <ul className="flex list-disc flex-col gap-2 pl-5">
               <li>Use Claude Code as much as you like. You will be asked to explain every change, so read what it writes.</li>
-              <li>The problems get harder. Most people do not finish the third, and that is expected.</li>
               <li>
                 Some details are left open on purpose. If a choice is about how the cafe should work, ask {INTERVIEWER}.
                 He answers for Meera.
