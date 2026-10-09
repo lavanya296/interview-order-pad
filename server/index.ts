@@ -1,5 +1,6 @@
 import express from 'express'
 import { menu } from './menu'
+import { priceOrder } from './pricing'
 
 type OrderLine = { itemId: string; name: string; price: number; qty: number }
 
@@ -26,19 +27,20 @@ app.get('/api/orders', (_req, res) => {
 })
 
 app.post('/api/orders', (req, res) => {
-  const { till, lines, staffDiscount, total } = req.body
+  const { till, staffDiscount } = req.body
 
-  if (!Array.isArray(lines) || lines.length === 0) {
-    res.status(400).json({ error: 'An order needs at least one line.' })
+  const priced = priceOrder(req.body, menu)
+  if (!priced.ok) {
+    res.status(400).json({ error: priced.error })
     return
   }
 
   const order: Order = {
     number: orders.length + 1,
     till,
-    lines,
+    lines: priced.lines,
     staffDiscount,
-    total,
+    total: priced.total,
     placedAt: new Date().toISOString(),
   }
   orders.push(order)

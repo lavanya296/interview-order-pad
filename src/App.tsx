@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getMenu, getOrders, placeOrder, type MenuItem, type Order, type OrderLine } from './api'
-import { orderTotal } from './total'
+import { orderTotal, takings } from './total'
 
 // Each till has its own address: a.localhost is Till A, b.localhost is Till B.
 const TILL = window.location.hostname.startsWith('b.') ? 'B' : 'A'
@@ -19,7 +19,7 @@ export function App() {
   }, [])
 
   const total = orderTotal(basket, staffDiscount)
-  const totalOrders = orders.reduce((sum, order) => sum + order.total, 0)
+  const totalOrders = takings(orders)
   const takenToday = totalOrders.toFixed(2)
 
   function add(item: MenuItem) {
