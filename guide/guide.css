@@ -1,0 +1,76 @@
+@import 'tailwindcss';
+
+/* Paper on a desk: warm neutrals, ink for text and the one main button, and a highlighter
+   yellow that is used only where the guide points at something. One sans-serif typeface
+   throughout; headings differ by size and weight. */
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --color-desk: oklch(0.945 0.008 85);
+  --color-paper: oklch(0.988 0.004 85);
+  --color-ink: oklch(0.25 0.012 60);
+  --color-ink-2: oklch(0.45 0.012 60);
+  --color-ink-3: oklch(0.52 0.01 60);
+  --color-line: oklch(0.25 0.012 60 / 0.1);
+  --color-mark: oklch(0.925 0.125 98);
+  --color-mark-deep: oklch(0.86 0.15 96);
+  --color-good: oklch(0.6 0.13 155);
+  --color-flaky: oklch(0.72 0.15 62);
+  --color-offline: oklch(0.57 0.19 27);
+
+  --radius-control: 0.375rem;
+  --radius-button: 0.625rem;
+  --radius-card: 0.875rem;
+
+  --shadow-object: 0 0 0 1px oklch(0.25 0.012 60 / 0.06), 0 1px 1px oklch(0.25 0.012 60 / 0.04),
+    0 4px 10px oklch(0.25 0.012 60 / 0.05), 0 16px 32px oklch(0.25 0.012 60 / 0.05);
+
+  --ease-enter: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--color-ink);
+  background: var(--color-desk);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.87em;
+  padding: 0.1em 0.35em;
+  border-radius: 0.3rem;
+  background: oklch(0.25 0.012 60 / 0.06);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+/* Folding sections open and shut without animating height. */
+.fold {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 220ms var(--ease-enter);
+}
+.fold[data-open='true'] {
+  grid-template-rows: 1fr;
+}
+.fold > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+  }
+}
