@@ -19,7 +19,8 @@ export function App() {
   }, [])
 
   const total = orderTotal(basket, staffDiscount)
-  const takenToday = orders.reduce((sum, order) => sum + order.total, 0)
+  const totalOrders = orders.reduce((sum, order) => sum + order.total, 0)
+  const takenToday = totalOrders.toFixed(2)
 
   function add(item: MenuItem) {
     setMessage(null)
